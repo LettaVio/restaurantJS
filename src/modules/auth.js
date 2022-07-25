@@ -7,6 +7,7 @@ export const auth = () => {
     const loginForm = document.getElementById("logInForm");
     const inputLogin = document.getElementById("login");
     const inputPassword = document.getElementById("password");
+    const buttonCard = document.querySelector(".button-cart");
 
     const login = (user) => {
 
@@ -14,6 +15,7 @@ export const auth = () => {
         buttonOut.style.display = 'flex';
         userName.style.display = 'flex';
         userName.textContent = user.login;
+        buttonCard.style.display = 'flex';
         modalAuth.style.display = 'none';
     }
 
@@ -23,6 +25,7 @@ export const auth = () => {
         buttonOut.style.display = 'none';
         userName.style.display = 'none';
         userName.textContent = '';
+        buttonCard.style.display = 'none';
         localStorage.removeItem('user');
     }
 

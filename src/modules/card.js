@@ -39,25 +39,21 @@ export const card = () => {
         renderItems(cartArray);
     }
 
-    const sumItem = () => {
+    const totalPrice = () => {
         const cartArray = JSON.parse(localStorage.getItem('cart'));
-        console.log(cartArray);
-
-        cartArray.forEach(({ price, id, count }) => {
-            const tmpSum = [];
-            tmpSum.push(price * count);
-            const initialValue = 0;
-            const sumWithInitial = tmpSum.reduce(
-                (previousValue, currentValue) => previousValue + currentValue,
-                initialValue
-            );
-            console.log(sumWithInitial);
+        let itemSum = 0;
+        const arrayPrice = cartArray.map((item) => {
+            itemSum = item.count * item.price;
+            return itemSum;
         })
-
-
-
+        const initialValue = 0;
+        const sumWithInitial = arrayPrice.reduce(
+            (previousValue, currentValue) => previousValue + currentValue,
+            initialValue
+        );
+        return sumWithInitial;
     }
-    sumItem()
+
 
     const renderItems = (data) => {
 
@@ -85,14 +81,13 @@ export const card = () => {
 
         e.preventDefault();
         if (e.target.classList.contains('btn-inc')) {
-            console.log(e.target.dataset.index);
+            // console.log(e.target.dataset.index);
             incrementCount(e.target.dataset.index);
         }
         else if (e.target.classList.contains('btn-dec')) {
             decrementCount(e.target.dataset.index);
         }
-
-
+        modalPricetag.innerHTML = totalPrice() + " ₽";
     })
 
 
@@ -120,6 +115,7 @@ export const card = () => {
 
         if (localStorage.getItem('cart')) {
             renderItems(JSON.parse(localStorage.getItem('cart')));
+            modalPricetag.innerHTML = totalPrice() + " ₽";
         }
 
         modalCart.classList.add('is-open');
